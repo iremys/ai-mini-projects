@@ -65,17 +65,34 @@ ___
 
 ## 4. 데이터 전처리 및 PyTorch 입력 준비 (CP-03)
 
-- **범주형 특성(One-Hot 인코딩):** ___
-- **수치형 특성(표준화):** ___
-- **이진 특성(변환 없이 사용):** ___
+- **범주형 특성(One-Hot 인코딩):** Month, OperatingSystems, Browser, Region, TrafficType, VisitorType (6개)
+
+- **수치형 특성(표준화):** Administrative, Administrative_Duration, Informational, Informational_Duration, ProductRelated, ProductRelated_Duration, BounceRates, ExitRates, PageValues, SpecialDay (10개)
+
+- **이진 특성(변환 없이 사용):** Weekend (1개)
+
 - **숫자로 표현된 코드값(`OperatingSystems`, `Browser` 등)을 범주형으로 처리한 이유:** ___
+값이 숫자여도 크기나 순서가 아니라 종류를 구분하는 번호라서, 
+그대로 쓰면 모델이 3이 1보다 크다고 잘못 해석할 수 있다. 
+원-핫으로 종류별 0/1 컬럼으로 펼쳐 이를 막았다.
+
 - **`handle_unknown="ignore"`를 설정한 이유:** ___
-- **Train 전처리 전후 Shape:** ___ → ___
+Train에 없던 값이 Validation/Test에 나와도 에러 없이 모두 0으로 처리해 전처리가 멈추지 않게 하기 위함이다.
+
+- **Train 전처리 전후 Shape:** (8630, 17) → (8630, 73)
+
 - **Validation에 적용한 변환 기준:** ___
-- **PyTorch 입력·타깃 Tensor의 자료형 및 Shape:** ___
-- **`DataLoader` 배치 크기와 배치 수:** ___ / ___
+Train으로만 학습(fit)한 평균, 표준편차, 범주 목록을 그대로 사용해 transform만 적용했다. 
+Validation 정보가 전처리에 섞이지 않도록 하기 위함이다.
+
+- **PyTorch 입력·타깃 Tensor의 자료형 및 Shape:** 입력 float32 (8630, 73), 타깃 float32 (8630, 1)
+
+- **`DataLoader` 배치 크기와 배치 수:** 256 / 34
 
 **분석:** 신경망 입력을 `float32` Tensor로 준비하고 미니배치를 만드는 이유를 1~2문장으로 작성합니다.  
+PyTorch 신경망은 float32 Tensor만 계산할 수 있어서, 전처리된 입력과 정답을 float32 Tensor로 변환했다. 
+또한 한 건씩 학습하면 값이 튀는 데이터에 가중치가 흔들리고 계산도 느리므로, 
+256개씩 묶은 미니배치(34개)로 학습해 갱신 방향을 안정시키고 계산 효율을 높였다.
 ___
 
 ## 5. 데이터 분석 요약
