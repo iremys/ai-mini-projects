@@ -1,0 +1,14 @@
+{
+  "selected_method": "tfidf",
+  "priority_metric": "recall3",
+  "validation": {
+    "hit1": 0.8833333333333333,
+    "recall3": 0.9666666666666667,
+    "mrr5": 0.9166666666666666
+  },
+  "test": {
+    "hit1": 0.8,
+    "recall3": 0.8,
+    "mrr5": 0.8125
+  }
+}

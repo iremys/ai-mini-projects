@@ -14,6 +14,12 @@ checkpoints/
 # Jupyter 체크포인트
 .ipynb_checkpoints/
 
+
 # 강사용 완성코드
 *_completion.ipynb
 # results/
+
+
+# 모델 가중치 / 임베딩 캐시 (용량 큼, Hugging Face에서 재다운로드 가능)
+mini-project-02/code/nlp_bert_mini/weights/
+mini-project-02/code/nlp_bert_mini/outputs/cache/
